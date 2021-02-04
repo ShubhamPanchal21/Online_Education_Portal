@@ -1,0 +1,141 @@
+{% extends 'commondesign_admin.html' %}
+
+{% block bodycontent %}
+<script>
+
+    function check()
+    {
+        var cate=document.f1.state.value;
+        var cat=document.f1.countr.value;
+        var flag=true;
+
+        if(cate=="")
+        {
+            document.getElementById("s1").innerHTML="Enter State";
+             flag=false;
+        }
+        else
+        {
+            if(checkstring(cate)==true)
+            {
+                document.getElementById("s1").innerHTML="";
+            }
+            else
+            {
+                flag=false;
+               document.getElementById("s1").innerHTML="State must be alphabetical";
+            }
+        }
+        if(cat=="")
+        {
+            document.getElementById("s2").innerHTML="Select Country";
+             flag=false;
+        }
+        else
+        {
+            document.getElementById("s2").innerHTML="";
+        }
+      return flag;
+    }
+
+    function checkstring(s)
+    {
+        var flag=true;
+        for(i=0;i<s.length;i++)
+        {
+            var ch=s.charAt(i)
+            if((ch>='a' && ch<='z') || (ch>='A' && ch<='Z') || ch==' ')
+            {
+            }
+            else
+            {
+              flag=false;
+              break;
+            }
+        }
+      return flag;
+    }
+
+</script>
+  <div class="card card-primary">
+      <div class="card-header">
+          <h3 class="card-title" style="font-size:20px">State</h3>
+      </div>
+              <!-- /.card-header -->
+      <form role="form" name="f1" onsubmit="return check();" action="../updatestate/" method="post">
+          {% csrf_token %}
+          <input type="hidden" value="{{r.id}}" name="id">
+          <div class="card-body  form-group">
+              <label style="font-size:20px">State</label>
+              <input type="text" class="form-control" value="{{r.name}}" name="state"  placeholder="Enter State">
+              <span id="s1" style="color:red"></span>
+          </div>
+          <div class="card-body  form-group" >
+              <label style="font-size:20px;">Country</label>
+              <select  class="form-control" name="countr" >
+                  <option value="">Select country</option>
+                  {% for ct in country_list %}
+                     {% if ct.id == r.countryid.id %}
+                         <option selected value="{{ct.id}}">{{ct.name}}</option>
+                     {% else%}
+                         <option value="{{ct.id}}">{{ct.name}}</option>
+                     {% endif %}
+                  {% endfor %}
+              </select>
+              <span id="s2" style="color:red"></span>
+          </div>
+          <div class="card-footer">
+              <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+          <br>
+          <p style="color:red">{{msg}}</p>
+      </form>
+  </div>
+<br>
+<br>
+<div class="card">
+              <div class="card-header">
+                <h3 class="card-title">State</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <table id="example2" class="table table-bordered table-hover">
+                  <thead>
+                  <tr>
+                    <th>Id </th>
+                    <th>State</th>
+                      <th>Country</th>
+                      <th>is_Active</th>
+                    <th></th>
+                    <th></th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  {% for s in state_list %}
+    <tr>
+        <td>{{s.id}}</td>
+        <td>{{s.name}}</td>
+        <td>{{s.countryid.name}}</td>
+        <td>{{s.sta_isActive}}</td>
+        <td><a href="../editstate/?x={{s.id}}">Edit</a></td>
+        <td><a href="../deletestate/?x={{s.id}}">Delete</a></td>
+    </tr>
+    {% endfor %}
+                  </tbody>
+                  <tfoot>
+                  <tr>
+                    <th>Id </th>
+                    <th>State</th>
+                      <th>Country</th>
+                      <th>is_Active</th>
+                    <th></th>
+                    <th></th>
+                  </tr>
+                  </tfoot>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+    </div>
+
+{% endblock %}

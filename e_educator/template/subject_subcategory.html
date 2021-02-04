@@ -1,0 +1,143 @@
+{% extends 'commondesign_admin.html' %}
+
+{% block bodycontent %}
+<script>
+
+    function check()
+    {
+        var cate=document.f1.subcat.value;
+        var cat=document.f1.cat.value;
+        var flag=true;
+
+        if(cate=="")
+        {
+            document.getElementById("s1").innerHTML="Enter Sub-Category";
+             flag=false;
+        }
+        else
+        {
+            if(checkstring(cate)==true)
+            {
+                document.getElementById("s1").innerHTML="";
+            }
+            else
+            {
+                flag=false;
+               document.getElementById("s1").innerHTML="Sub-Category must be alphabetical";
+            }
+        }
+        if(cat=="")
+        {
+            document.getElementById("s2").innerHTML="Select Category";
+             flag=false;
+        }
+        else
+        {
+            document.getElementById("s2").innerHTML="";
+        }
+      return flag;
+    }
+
+    function checkstring(s)
+    {
+        var flag=true;
+        for(i=0;i<s.length;i++)
+        {
+            var ch=s.charAt(i)
+            if((ch>='a' && ch<='z') || (ch>='A' && ch<='Z') || ch==' ')
+            {
+            }
+            else
+            {
+              flag=false;
+              break;
+            }
+        }
+      return flag;
+    }
+
+</script>
+  <div class="card card-primary">
+      <div class="card-header">
+          <h3 class="card-title" style="font-size:20px">Subject_SubCategory</h3>
+      </div>
+              <!-- /.card-header -->
+      <form role="form" name="f1" onsubmit="return check();" enctype="multipart/form-data"  action="../addsubcategory/" method="post" role="form">
+          {% csrf_token %}
+          <div class="card-body  form-group">
+              <label style="font-size:20px">SubCategory</label>
+              <input type="text" class="form-control" name="subcat"  placeholder="Enter SubCategory">
+              <span id="s1" style="color:red"></span>
+          </div>
+          <div class="card-body  form-group" >
+              <label style="font-size:20px;">Category</label>
+              <select  class="form-control" name="cat" >
+                  <option value="">Select Category</option>
+                  {% for cl in category_list %}
+                     <option value="{{cl.id}}">{{cl.category_name}}</option>
+                  {% endfor %}
+              </select>
+              <span id="s2" style="color:red"></span>
+          </div>
+          <div class="form-group card-body">
+              <label  style="font-size:20px" >SubCategory_Image</label>
+                <input type="file" class="form-control" name="ph" required/>
+          </div>
+          <div class="card-footer">
+              <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+          <br>
+          <p style="color:red">{{msg}}</p>
+      </form>
+  </div>
+<br>
+<br>
+<div class="card">
+              <div class="card-header">
+                <h3 class="card-title">SubCategory</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <table id="example2" class="table table-bordered table-hover">
+                  <thead>
+                  <tr>
+                    <th>Id </th>
+                    <th>SubCategory</th>
+                      <th>Category</th>
+                      <th>SubCategory_Image</th>
+                      <th>is_Active</th>
+                    <th></th>
+                    <th></th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  {% for s in subcategory_list %}
+    <tr>
+        <td>{{s.id}}</td>
+        <td>{{s.subcategory_name}}</td>
+        <td>{{s.categoryid.category_name}}</td>
+        <td><img src="{{s.subcategory_photo}}" width="80" height="80"></td>
+        <td>{{s.subcategory_isActive}}</td>
+        <td><a href="../editsubcategory/?x={{s.id}}">Edit</a></td>
+        <td><a href="../deletesubcategory/?x={{s.id}}">Delete</a></td>
+    </tr>
+    {% endfor %}
+                  </tbody>
+                  <tfoot>
+                  <tr>
+                    <th>Id </th>
+                    <th>SubCategory</th>
+                      <th>Category</th>
+                      <th>SubCategory_Image</th>
+                      <th>is_Active</th>
+                    <th></th>
+                    <th></th>
+                  </tr>
+                  </tfoot>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+    </div>
+
+{% endblock %}

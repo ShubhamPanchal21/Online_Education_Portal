@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>AdminLTE 3 | Registration Page</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="{% static 'plugins/fontawesome-free/css/all.min.css' %}">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- icheck bootstrap -->
+  <link rel="stylesheet" href="{% static 'plugins/icheck-bootstrap/icheck-bootstrap.min.css' %}">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="{% static 'dist/css/adminlte.min.css' %}">
+  <!-- Google Font: Source Sans Pro -->
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+</head>
+<body class="hold-transition register-page">
+<script>
+    function check()
+    {
+
+        var fname=document.f1.fname.value;
+        var phone=document.f1.phone.value;
+        var emailid=document.f1.mail.value;
+        var password=document.f1.pass.value;
+        var conpass=document.f1.conpass.value;
+        var flag = true;
+
+        if(fname=="")
+        {
+            document.getElementById("s1").innerHTML="Enter First Name";
+            flag=false;
+        }
+        else
+        {
+            if(checkstring(fname)==true)
+            {
+                document.getElementById("s1").innerHTML="";
+            }
+            else
+            {
+                flag=false;
+                document.getElementById("s1").innerHTML="Name must be alphabetical";
+            }
+        }
+
+        if(phone=="")
+        {
+            document.getElementById("s5").innerHTML="Enter Mobile No";
+            flag=false;
+        }
+        else
+        {
+            if(checkmo(phone)==true)
+            {
+                document.getElementById("s5").innerHTML="";
+            }
+            else
+            {
+                flag=false;
+                document.getElementById("s5").innerHTML="Mobile No. must be Numerical";
+            }
+        }
+        if(emailid=="")
+        {
+            flag=false;
+            document.getElementById("s8").innerHTML="Enter Emailid";
+        }
+        else
+        {
+            document.getElementById("s8").innerHTML="";
+        }
+        if(password=="")
+        {
+            flag=false;
+            document.getElementById("s9").innerHTML="Enter Password";
+        }
+        else
+        {
+            document.getElementById("s9").innerHTML="";
+        }
+
+        if(conpass=="")
+        {
+           flag=false;
+           document.getElementById("s10").innerHTML="Enter Confirm Password";
+        }
+        else
+        {
+            document.getElementById("s10").innerHTML="";
+        }
+
+        if(conpass != password)
+        {
+           flag=false;
+           document.getElementById("s11").innerHTML="Password and Confirm Password Must be Same";
+        }
+        else
+        {
+             document.getElementById("s11").innerHTML="";
+        }
+        return flag;
+    }
+   function checkstring(s)
+	{
+	    var flag=true;
+        for(i=0;i<s.length;i++)
+	    {
+	        var ch=s.charAt(i);
+	        if((ch>='a' && ch<='z') ||(ch>='A' && ch<='Z')|| ch==' ')
+	        {
+	        }
+	        else{
+	             flag=false;
+	             break;
+	        }
+	    }
+	    return flag;
+	}
+	function checkmo(s)
+	{
+	    var flag=true;
+        for(i=0;i<s.length;i++)
+	    {
+	        var ch=s.charAt(i);
+	        if((ch>='0' && ch<='9'))
+	        {
+	        }
+	        else{
+	             flag=false;
+	             break;
+	        }
+	    }
+	    return flag;
+	}
+
+</script>
+
+<div class="register-box">
+  <div class="register-logo">
+    <a href="../../index2.html"><b>Admin</b>LTE</a>
+  </div>
+
+  <div class="card">
+    <div class="card-body register-card-body">
+      <p class="login-box-msg" style="font-size:20px;">Register New Admin</p>
+
+      <form action="../addadmin/"  name="f1" onsubmit="return check()" method="post">
+       {% csrf_token %}
+        <div class="input-group mb-2">
+          <input type="text" class="form-control" name="fname" placeholder="Enter Full name" >
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-user"></span>
+            </div>
+          </div>
+        </div><span id="s1"  style="color:red;float:right"></span>
+
+
+        <div class="input-group mb-2" >
+            <div class="input-group-prepend" >
+                <span class="input-group-text" id="inputGroup-sizing">+91</span>
+            </div>
+             <input type="text" class="form-control" name="phone" placeholder="Enter Phone No." pattern="(?=.*\d)(?=.*[0-9]).{10}" title="Mobile No must be 10 digits" >
+           <div class="input-group-append">
+            <div class="input-group-text">
+             <span class="fas fa-mobile"></span>
+            </div>
+          </div>
+        </div><span id="s5" style="color:red;float:right"></span>
+          <div class="input-group mb-2">
+             <input type="email" class="form-control" name="mail" placeholder="Enter Email_id" >
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-envelope-open"></span>
+            </div>
+          </div>
+        </div><span id="s8" style="color:red;float:right"></span>
+
+        <div class="input-group mb-2">
+             <input type="password" class="form-control" name="pass" placeholder="Enter Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.*[0-9]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter and one special character, and at least 8 or more characters">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-lock"></span>
+            </div>
+          </div>
+        </div><span id="s9" style="color:red;float:right"></span>
+
+        <div class="input-group mb-2">
+             <input type="password" class="form-control" name="conpass" placeholder="Confirm Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.*[0-9]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter and one special character, and at least 8 or more characters">
+            <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-lock"></span>
+            </div>
+          </div>
+        </div><span id="s10" style="color:red;float:right"></span>
+          <span id="s11" style="color:red;float:right"></span>
+          <br>
+
+        <div class="row">
+          <div class="col-12" >
+            <div class="icheck-primary" >
+              <input type="checkbox" id="agreeTerms" name="terms" value="agree" required>
+              <label  for="agreeTerms" style="margin-left:42px">
+               I agree to the <a href="#">terms</a>
+              </label>
+            </div>
+          </div>
+        </div>
+		<br>
+
+		<div class="col-4" style="margin-left:110px">
+            <input type="submit" class="btn btn-primary btn-block" value="Register">
+        </div>
+      </form>
+
+        <span style="color:red"> {{msg}}</span>
+
+	  <br>
+      <a href="../adminlogin/" class="text-center" style="font-size:20px">Already Registered?</a>
+    </div>
+    <!-- /.form-box -->
+  </div><!-- /.card -->
+</div>
+<!-- /.register-box -->
+
+<!-- jQuery -->
+<script src="{% static 'plugins/jquery/jquery.min.js' %}"></script>
+<!-- Bootstrap 4 -->
+<script src="{% static 'plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<!-- AdminLTE App -->
+<script src="{% static 'dist/js/adminlte.min.js' %}"></script>
+</body>
+</html>

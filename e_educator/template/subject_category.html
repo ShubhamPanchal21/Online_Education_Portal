@@ -1,0 +1,113 @@
+{% extends 'commondesign_admin.html' %}
+
+{% block bodycontent %}
+<script>
+
+    function check()
+    {
+        var cat=document.f1.cate.value;
+        var flag=true;
+
+        if(cat=="")
+        {
+            document.getElementById("s1").innerHTML="Enter Category";
+             flag=false;
+        }
+        else
+        {
+            if(checkstring(cat)==true)
+            {
+                document.getElementById("s1").innerHTML="";
+            }
+            else
+            {
+                flag=false;
+               document.getElementById("s1").innerHTML="Category must be alphabetical";
+            }
+        }
+      return flag;
+    }
+
+    function checkstring(s)
+    {
+        var flag=true;
+        for(i=0;i<s.length;i++)
+        {
+            var ch=s.charAt(i)
+            if((ch>='a' && ch<='z') || (ch>='A' && ch<='Z') || ch==' ')
+            {
+            }
+            else
+            {
+              flag=false;
+              break;
+            }
+        }
+      return flag;
+    }
+
+</script>
+  <div class="card card-primary">
+      <div class="card-header">
+          <h3 class="card-title" style="font-size:20px">Subject_Category</h3>
+      </div>
+              <!-- /.card-header -->
+      <form role="form" name="f1" onsubmit="return check();" action="../addcategory/" method="post">
+          {% csrf_token %}
+          <div class="card-body  form-group">
+              <label style="font-size:20px">Category</label>
+              <input type="text" class="form-control" name="cate"  placeholder="Enter Category">
+              <span id="s1" style="color:red"></span>
+          </div>
+          <div class="card-footer">
+              <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+          <br>
+          <p style="color:red">{{msg}}</p>
+      </form>
+  </div>
+<br>
+<br>
+<div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Subject_Category</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <table id="example2" class="table table-bordered table-hover">
+                  <thead>
+                  <tr>
+                    <th>Id </th>
+                    <th>Category</th>
+                      <th>is_Active</th>
+                    <th></th>
+                    <th></th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  {% for s in category_list %}
+    <tr>
+        <td>{{s.id}}</td>
+        <td>{{s.category_name}}</td>
+        <td>{{s.cat_isActive}}</td>
+        <td><a href="../editcategory/?x={{s.id}}">Edit</a></td>
+        <td><a href="../deletecategory/?x={{s.id}}">Delete</a></td>
+    </tr>
+    {% endfor %}
+                  </tbody>
+                  <tfoot>
+                  <tr>
+                      <th>Id </th>
+                    <th>Country</th>
+                      <th>is_Active</th>
+                    <th></th>
+                    <th></th>
+                  </tr>
+                  </tfoot>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+    </div>
+
+{% endblock %}

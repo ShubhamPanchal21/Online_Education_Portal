@@ -1,0 +1,136 @@
+{% extends 'commondesign_admin.html' %}
+
+{% block bodycontent %}
+<script>
+
+    function check()
+    {
+        var cate=document.f1.city.value;
+        var cat=document.f1.state.value;
+        var flag=true;
+
+        if(cate=="")
+        {
+            document.getElementById("s1").innerHTML="Enter City";
+             flag=false;
+        }
+        else
+        {
+            if(checkstring(cate)==true)
+            {
+                document.getElementById("s1").innerHTML="";
+            }
+            else
+            {
+                flag=false;
+               document.getElementById("s1").innerHTML="City must be alphabetical";
+            }
+        }
+        if(cat=="")
+        {
+            document.getElementById("s2").innerHTML="Select State";
+             flag=false;
+        }
+        else
+        {
+            document.getElementById("s2").innerHTML="";
+        }
+      return flag;
+    }
+
+    function checkstring(s)
+    {
+        var flag=true;
+        for(i=0;i<s.length;i++)
+        {
+            var ch=s.charAt(i)
+            if((ch>='a' && ch<='z') || (ch>='A' && ch<='Z') || ch==' ')
+            {
+            }
+            else
+            {
+              flag=false;
+              break;
+            }
+        }
+      return flag;
+    }
+
+</script>
+  <div class="card card-primary">
+      <div class="card-header">
+          <h3 class="card-title" style="font-size:20px">City</h3>
+      </div>
+              <!-- /.card-header -->
+      <form role="form" name="f1" onsubmit="return check();" action="../addcity/" method="post">
+          {% csrf_token %}
+          <div class="card-body  form-group">
+              <label style="font-size:20px">City</label>
+              <input type="text" class="form-control" name="city"  placeholder="Enter City">
+              <span id="s1" style="color:red"></span>
+          </div>
+          <div class="card-body  form-group" >
+              <label style="font-size:20px;">State</label>
+              <select  class="form-control" name="state" >
+                  <option value="">Select State</option>
+                  {% for cl in state_list %}
+                     <option value="{{cl.id}}">{{cl.name}}</option>
+                  {% endfor %}
+              </select>
+              <span id="s2" style="color:red"></span>
+          </div>
+          <div class="card-footer">
+              <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+          <br>
+          <p style="color:red" class="card-body ">{{msg}}</p>
+      </form>
+  </div>
+<br>
+<br>
+<div class="card">
+              <div class="card-header">
+                <h3 class="card-title">City</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <table id="example2" class="table table-bordered table-hover">
+                  <thead>
+                  <tr>
+                    <th>Id </th>
+                    <th>City</th>
+                      <th>State</th>
+                      <th>is_Active</th>
+                    <th></th>
+                    <th></th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  {% for s in city_list %}
+    <tr>
+        <td>{{s.id}}</td>
+        <td>{{s.name}}</td>
+        <td>{{s.stateid.name}}</td>
+        <td>{{s.cit_isActive}}</td>
+        <td><a href="../editcity/?x={{s.id}}">Edit</a></td>
+        <td><a href="../deletecity/?x={{s.id}}">Delete</a></td>
+    </tr>
+    {% endfor %}
+                  </tbody>
+                  <tfoot>
+                  <tr>
+                    <th>Id </th>
+                    <th>City</th>
+                      <th>State</th>
+                      <th>is_Active</th>
+                    <th></th>
+                    <th></th>
+                  </tr>
+                  </tfoot>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+    </div>
+
+{% endblock %}

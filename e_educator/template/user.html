@@ -1,0 +1,213 @@
+<script>
+    function check()
+    {
+        var fname=document.f1.fname.value;
+        var lname=document.f1.lname.value;
+        var address=document.f1.address.value;
+        var city=document.f1.city.value;
+        var phone=document.f1.phone.value;
+        var gender=document.f1.gender.value;
+        var emailid=document.f1.mail.value;
+        var loginid=document.f1.log.value;
+        var password=document.f1.pass.value;
+
+        if(fname=="")
+        {
+            flag=false;
+            document.getElementById("s1").innerHTML="Enter First Name";
+        }
+        else
+        {
+            if(checkstring(lname)==true)
+            {
+                document.getElementById("s1").innerHTML="";
+            }
+            else
+            {
+                flag=false;
+                document.getElementById("s1").innerHTML="Name must be alphabetical";
+            }
+        }
+        if(lname=="")
+        {
+            flag=false;
+            document.getElementById("s2").innerHTML="Enter Last Name";
+        }
+        else
+        {
+            if(checkstring(lname)==true)
+            {
+                document.getElementById("s2").innerHTML="";
+            }
+            else
+            {
+                flag=false;
+                document.getElementById("s2").innerHTML="Name must be alphabetical";
+            }
+        }
+        if(address=="")
+        {
+            flag=false;
+            document.getElementById("s3").innerHTML="Enter Address";
+        }
+        else
+        {
+            document.getElementById("s3").innerHTML="";
+        }
+        if(city=="")
+        {
+            flag=false;
+            document.getElementById("s4").innerHTML="Select City";
+        }
+        else
+        {
+            document.getElementById("s4").innerHTML="";
+        }
+        if(phone=="")
+        {
+            flag=false;
+            document.getElementById("s5").innerHTML="Enter Mobile No";
+        }
+        else
+        {
+            if(checkmo(phone)==true)
+            {
+                document.getElementById("s5").innerHTML="";
+            }
+            else
+            {
+                flag=false;
+                document.getElementById("s5").innerHTML="Mobile No. must be Numerical";
+            }
+        }
+        if(gender=="")
+        {
+            flag=false;
+            document.getElementById("s6").innerHTML="Select Gender";
+        }
+        else
+        {
+            document.getElementById("s6").innerHTML="";
+        }
+        if(emailid=="")
+        {
+            flag=false;
+            document.getElementById("s7").innerHTML="Enter Email-id";
+        }
+        else
+        {
+            document.getElementById("s7").innerHTML="";
+        }
+        if(loginid=="")
+        {
+            flag=false;
+            document.getElementById("s8").innerHTML="Enter Loginid";
+        }
+        else
+        {
+            document.getElementById("s8").innerHTML="";
+        }
+
+        if(password=="")
+        {
+            flag=false;
+            document.getElementById("s9").innerHTML="Enter Password";
+        }
+        else
+        {
+            document.getElementById("s9").innerHTML="";
+        }
+        return flag;
+    }
+   function checkstring(s)
+	{
+	    var flag=true;
+        for(i=0;i<s.length;i++)
+	    {
+	        var ch=s.charAt(i);
+	        if((ch>='a' && ch<='z') ||(ch>='A' && ch<='Z')|| ch==' ')
+	        {
+	        }
+	        else{
+	             flag=false;
+	             break;
+	        }
+	    }
+	    return flag;
+	}
+	function checkmo(s)
+	{
+	    var flag=true;
+        for(i=0;i<s.length;i++)
+	    {
+	        var ch=s.charAt(i);
+	        if((ch>='0' && ch<='9'))
+	        {
+	        }
+	        else{
+	             flag=false;
+	             break;
+	        }
+	    }
+	    return flag;
+	}
+
+</script>
+
+<form name="f1" onsubmit="return check()">
+    <table>
+        <tr>
+            <td>First name</td>
+            <td><input type="text" name="fname" placeholder="Enter First Name"></td>
+            <td id="s1" style="color:red;"></td>
+        </tr>
+        <tr>
+            <td>Last name</td>
+            <td><input type="text" name="lname" placeholder="Enter Last Name"></td>
+            <td id="s2" style="color:red;"></td>
+        </tr>
+        <tr>
+            <td>Address</td>
+            <td><textarea name="address" placeholder="Enter Address"></textarea></td>
+            <td id="s3" style="color:red;"></td>
+        </tr>
+        <tr>
+            <td>City</td>
+            <td><select name="city" >
+                <option value="">Select City</option>
+            </select></td>
+            <td id="s4" style="color:red;"></td>
+        </tr>
+        <tr>
+            <td>Phone</td>
+            <td><input type="text" name="phone" placeholder="Enter Mobile No"></td>
+            <td id="s5" style="color:red;"></td>
+        </tr>
+        <tr>
+            <td>Gender</td>
+            <td><select name="gender">
+                <option value="">Select Gender</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="Other">Other</option>
+            </select></td>
+            <td id="s6" style="color:red;"></td>
+        </tr>
+         <tr>
+            <td>Emailid</td>
+            <td><input type="email" name="mail" placeholder="Enter Email-id"></td>
+             <td id="s7" style="color:red;"></td>
+        </tr>
+         <tr>
+            <td>Loginid</td>
+            <td><input type="text" name="log" placeholder="Enter Login-id"></td>
+             <td id="s8" style="color:red;"></td>
+        </tr>
+         <tr>
+            <td>Password</td>
+            <td><input type="password" name="pass" placeholder="Enter Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])(?=.*[0-9]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter and one special character, and at least 8 or more characters"></td>
+             <td id="s9" style="color:red;"></td>
+        </tr>
+        <tr><td></td><td><input type="submit" value="Submit"></td></tr>
+    </table>
+</form>

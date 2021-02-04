@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sign Up Form </title>
+
+    <!-- Font Icon -->
+    <link rel="stylesheet" href="{% static 'fonts/material-icon/css/material-design-iconic-font.min.css ' %}">
+
+    <!-- Main css -->
+    <link rel="stylesheet" href="{% static 'css/style.css ' %}">
+</head>
+<body>
+
+    <div class="main">
+
+        <section class="signup">
+            <!-- <img src="images/signup-bg.jpg" alt=""> -->
+            <div class="container">
+                <div class="signup-content">
+                    <form method="POST" id="signup-form" class="signup-form">
+                        {% csrf_token %}
+                        <h2 class="form-title">Create account</h2>
+                        <div class="form-group">
+                            <input type="text" class="form-input" name="fname" placeholder="Your First Name"/>
+                             <span  class="zmdi zmdi-account-circle field-icon "></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-input" name="lname"  placeholder="Your Last Name"/>
+                            <span  class="zmdi zmdi-account-circle field-icon "></span>
+                        </div>
+                        <div class="form-group">
+                            <textarea type="text" class="form-input" name="address"   placeholder="Your Address"></textarea>
+                            <span  class="zmdi zmdi-home field-icon "></span>
+                        </div>
+                        <div class="form-group">
+                            <select name="city" class="form-input">
+                                <option value="">Select City</option>
+                                {% for c in city_list %}
+                                    <option value="{{c.id}}">{{c.name}}</option>
+                                {% endfor %}
+                            </select>
+                            <span  class="zmdi zmdi-city-alt field-icon "></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-input" name="phone"  placeholder="Your Mobile Number"/>
+                            <span  class="zmdi zmdi-smartphone field-icon "></span>
+                        </div>
+                         <div class="form-group">
+                            <select name="city" class="form-input">
+                                <option value="">Select Gender</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Other">Other</option>
+                            </select>
+                             <span  class="zmdi zmdi-male-female field-icon "></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-input" name="email" id="email" placeholder="Your Email"/>
+                             <span  class="zmdi zmdi-email field-icon "></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-input" name="loginid"  placeholder="Your Login-id"/>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-input" name="password" id="password" placeholder="Password"/>
+                            <span toggle="#password" class="zmdi zmdi-eye field-icon toggle-password"></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-input" name="re_password"  placeholder="Repeat your password"/>
+                            <span toggle="#password" class="zmdi zmdi-eye field-icon toggle-password"></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" />
+                            <label for="agree-term" class="label-agree-term"><span><span></span></span>I agree all statements in  <a href="#" class="term-service">Terms of service</a></label>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" name="submit" id="submit" class="form-submit" value="Sign up"/>
+                        </div>
+                    </form>
+                    <p class="loginhere">
+                        Have already an account ? <a href="#" class="loginhere-link">Login here</a>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <!-- JS -->
+    <script src=" {% static 'vendor/jquery/jquery.min.js ' %}"></script>
+    <script src="{% static 'js/main.js ' %}"></script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Category</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <table id="example2" class="table table-bordered table-hover">
+                  <thead>
+                  <tr>
+                    <th>Id </th>
+                    <th>Brand</th>
+                    <th></th>
+                    <th></th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  {% for s in brlist %}
+    <tr>
+        <td>{{s.id}}</td>
+        <td>{{s.brandname}}</td>
+        <td><a href="../editbrand/?x={{s.id}}">Edit</a></td>
+        <td><a href="../deletebrand/?x={{s.id}}">Delete</a></td>
+    </tr>
+    {% endfor %}
+                  </tbody>
+                  <tfoot>
+                  <tr>
+                      <th>Id </th>
+                    <th>Brand</th>
+                    <th></th>
+                    <th></th>
+                  </tr>
+                  </tfoot>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+    </div>
